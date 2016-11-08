@@ -1,29 +1,8 @@
 #!/usr/bin/env python
 
-#import serial
 import time, sys
 import datetime
 import libPiLite as lpl
-
-#s = serial.Serial()
-#s.baudrate = 9600
-#s.timeout = 0
-#s.port = "/dev/serial0"
-
-#try:
-#    s.open()
-#except serial.SerialException, e:
-#    sys.stderr.write("Could not open port %r: %s\n" % (s.port, e))
-#    sys.exit(1)
-#
-#s.write("$$$ALLL,OFFF\r")
-#time.sleep(0.5)
-
-#while True:
-#    currenttime = datetime.datetime.strftime(datetime.datetime.now(), '%H:%M:%S')
-#    
-#    s.write(currenttime+"\r")
-#    time.sleep(1)
 
 numberprofile = { 0: [[0,0],[0,1],[0,2],[0,3],[0,4],[1,0],[1,4],[2,0],[2,1],[2,2],[2,3],[2,4]],
                   1: [[0,4],[1,0],[1,1],[1,2],[1,3],[1,4],[2,0],[2,4]],
@@ -76,9 +55,12 @@ def clockFace(grid, currenttime):
 currenttime = datetime.datetime.strftime(datetime.datetime.now(), '%H:%M')
 print currenttime
 
-grid = lpl.createBlankGrid(9,14)
-#lpl.printGrid(grid)
+serial = lpl.PiLiteSerial()
 
-grid = clockFace(grid, datetime.datetime.now().time())
-
-lpl.printGrid(grid)
+while True:
+    grid = lpl.createBlankGrid(9,14)
+    grid = clockFace(grid, datetime.datetime.now().time())
+    print ""
+    #lpl.printGrid(grid) #for debugging only
+    serial.writeBinary(lpl.serializeGrid(grid))
+    time.sleep(30)
