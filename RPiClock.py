@@ -18,7 +18,7 @@ s.write("$$$ALLL,OFFF\r")
 time.sleep(0.5)
 
 while True:
-    time = datetime.datetime.strftime(datetime.datetime.now(), '%H:$M:$S')
+    currenttime = datetime.datetime.strftime(datetime.datetime.now(), '%H:$M:$S')
     
-    s.write(time+"\r")
+    s.write(currenttime+"\r")
     time.sleep(1)
