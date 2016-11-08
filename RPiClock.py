@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import serial, time, sys
+import datetime
 
 s = serial.Serial()
 s.baudrate = 9600
@@ -17,5 +18,7 @@ s.write("$$$ALLL,OFFF\r")
 time.sleep(0.5)
 
 while True:
-    s.write("F")
-    time.sleep(0.5)
+    time = datetime.datetime.strftime(datetime.datetime.now(), '%H:$M:$S')
+    
+    s.write(time+"\r")
+    time.sleep(1)
