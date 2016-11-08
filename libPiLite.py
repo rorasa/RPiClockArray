@@ -28,4 +28,13 @@ def serializeGrid(grid):
         for i in range(0,numRow):
             gridstr += str(grid[i][j])
     return gridstr
-            
+
+def setGrid(grid, setlist, rowoffset, coloffset):
+    for entry in setlist:
+        grid[entry[0]+rowoffset][entry[1]+coloffset] = 1
+    return grid
+
+def resetGrid(grid, setlist, rowoffset, coloffset):
+    for entry in setlist:
+        grid[entry[0]+rowoffset][entry[1]+coloffset] = 0
+    return grid
