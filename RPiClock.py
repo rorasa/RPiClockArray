@@ -66,11 +66,11 @@ while True:
         grid = clockFace(grid, datetime.datetime.now().time())
         print ""
         #lpl.printGrid(grid) #for debugging only
+    
+    if (tickcount%2)==0:
+        grid = lpl.setGrid(grid,[[0,1],[0,3]],0,0)
     else:
-        if (tickcount%2)==0:
-            grid = lpl.setGrid(grid,[[0,1],[0,3]],0,0)
-        else:
-            grid = lpl.resetGrid(grid,[[0,1],[0,3]],0,0)
+        grid = lpl.resetGrid(grid,[[0,1],[0,3]],0,0)
 
     tickcount += 1
     if tickcount == 30:
