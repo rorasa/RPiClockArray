@@ -57,10 +57,21 @@ print currenttime
 
 serial = lpl.PiLiteSerial()
 
+tickcount = 0
+
 while True:
-    grid = lpl.createBlankGrid(9,14)
-    grid = clockFace(grid, datetime.datetime.now().time())
-    print ""
-    #lpl.printGrid(grid) #for debugging only
+    if tickcount == 30:
+        grid = lpl.createBlankGrid(9,14)
+        grid = clockFace(grid, datetime.datetime.now().time())
+        print ""
+        #lpl.printGrid(grid) #for debugging only
+        tickcount = 0
+    else:
+        if (tickcount%2)==0:
+            grid = lpl.setGrid(grid,[[0,1],[0,3]],0,0)
+        else:
+            grid = lpl.resetGrid(grid,[[0,1],[0,3]],0,0)
+        tickcount += 1
+            
     serial.writeBinary(lpl.serializeGrid(grid))
-    time.sleep(30)
+    time.sleep(1)
